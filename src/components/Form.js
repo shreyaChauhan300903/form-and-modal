@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -87,6 +89,11 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
+    toast.success("Form submitted successfully!", {
+      onClose: () => {
+        setShow(true); // Show the modal only after the toast is closed
+      },
+    });
     setFormData({
       name: "",
       email: "",
@@ -97,11 +104,12 @@ const Form = () => {
       lastMenstrualCycle: "",
       hobbies: [],
     });
-    setShow(true);
   };
 
   return (
     <>
+      <ToastContainer />
+
       <div className=" flex justify-content-center align-items-center min-vh-100">
         <form
           onSubmit={handleSubmit}
